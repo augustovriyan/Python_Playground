@@ -30,7 +30,8 @@ As this repository is primarily a personal learning space, contributions are not
 
 ## License
 
-This repository is licensed under the [MIT License](LICENSE). You are free to use, modify, and distribute the code as per the terms of the license.
+This repository is licensed under the [GNU General Public License (GPL)](LICENSE). You are free to use, modify, and distribute the code as per the terms of the license.
+
 
 ## Contact
 
