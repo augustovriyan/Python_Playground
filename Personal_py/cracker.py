@@ -45,5 +45,10 @@ if __name__ == "__main__":
             continue
 
         character_space = len(set(password))
+
+        if character_space == 0:
+            print("Password should contain at least one character.")
+            continue
+
         crack_time = calculate_crack_time(password_length, character_space)
         print("Estimated crack time:", crack_time)
