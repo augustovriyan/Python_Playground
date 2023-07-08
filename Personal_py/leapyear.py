@@ -17,7 +17,11 @@ while True:
         print("Exiting the program...")
         break
 
-    year = int(year)
+    try:
+        year = int(year)
+    except ValueError:
+        print("Invalid input. Please input numeric value only for the year leap to work.")
+        continue
 
     if is_leap_year(year):
         print(f"{year} is a leap year.")
