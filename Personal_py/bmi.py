@@ -14,8 +14,21 @@ def interpret_bmi(bmi):
         return "Obese"
 
 # Main program
-weight = float(input("Enter your weight in kilograms: "))
-height = float(input("Enter your height in centimeters: "))
+weight = None
+while weight is None:
+    weight_input = input("Enter your weight in kilograms: ")
+    try:
+        weight = float(weight_input)
+    except ValueError:
+        print("Invalid weight. Please enter a numeric value.")
+
+height = None
+while height is None:
+    height_input = input("Enter your height in centimeters: ")
+    try:
+        height = float(height_input)
+    except ValueError:
+        print("Invalid height. Please enter a numeric value.")
 
 bmi = calculate_bmi(weight, height)
 category = interpret_bmi(bmi)
