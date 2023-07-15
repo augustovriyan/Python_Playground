@@ -12,6 +12,12 @@ def hello(update, context):
     if 'hello' in message_text:
         context.bot.send_message(chat_id=update.effective_chat.id, text="Hello there!")
 
+def option1(update, context):
+    context.bot.send_message(chat_id=update.effective_chat.id, text="Option 1 selected!")
+
+def option2(update, context):
+    context.bot.send_message(chat_id=update.effective_chat.id, text="Option 2 selected!")
+
 def handle_dm2(update, context):
     # Retrieve the message text and sender's ID
     message_text = update.message.text
@@ -38,10 +44,14 @@ def main():
     start_handler = CommandHandler("start", start)
     aboutme_handler = CommandHandler("aboutme", aboutme)
     hello_handler = MessageHandler(Filters.text & (~Filters.command) & Filters.regex(r'(?i)hello'), hello)
+    option1_handler = CommandHandler("option1", option1)
+    option2_handler = CommandHandler("option2", option2)
 
     dispatcher.add_handler(start_handler)
     dispatcher.add_handler(aboutme_handler)
     dispatcher.add_handler(hello_handler)
+    dispatcher.add_handler(option1_handler)
+    dispatcher.add_handler(option2_handler)
 
     updater.start_polling()
 
