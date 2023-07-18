@@ -1,4 +1,5 @@
 import random
+import matplotlib.pyplot as plt
 
 def roll_dice(num_dice, num_sides):
     rolls = []
@@ -24,6 +25,16 @@ def main():
     print("Results: {}".format(rolls))
     print("Total: {}".format(total))
     print("Frequencies: {}".format(frequencies))
+
+    # Plotting the histogram
+    x = list(frequencies.keys())
+    y = list(frequencies.values())
+
+    plt.bar(x, y)
+    plt.xlabel('Dice Roll')
+    plt.ylabel('Frequency')
+    plt.title('Dice Roll Frequencies')
+    plt.show()
 
 if __name__ == "__main__":
     main()
