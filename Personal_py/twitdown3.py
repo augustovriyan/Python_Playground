@@ -1,23 +1,26 @@
-# ```
 import requests
 
-# URL Twitter video yang ingin diunduh
+# URL of the Twitter video to be downloaded
 video_url = "https://twitter.com/i/status/1670163475421712384"
 
-# Mendapatkan sumber halaman Twitter
-response = requests.get(video_url)
+try:
+    # Get the source page of the Twitter video
+    response = requests.get(video_url)
+    response.raise_for_status()  # Check for any HTTP errors
 
-# Mencari URL video dengan resolusi sederhana
-start = response.text.find('https://video.twimg.com/')
-end = response.text.find('.mp4', start) + 4
-video_link = response.text[start:end]
+    # Find the video URL with a simple resolution
+    start = response.text.find('https://video.twimg.com/')
+    end = response.text.find('.mp4', start) + 4
+    video_link = response.text[start:end]
 
-# Unduh video ke direktori F:\
-response = requests.get(video_link)
-with open(r"F:\twitter_video.mp4", "wb") as outfile:
-    outfile.write(response.content)
+    # Download the video to the F:\ directory
+    response = requests.get(video_link)
+    response.raise_for_status()  # Check for any HTTP errors
 
-print("Video berhasil diunduh ke F:\twitter_video.mp4")
-# ```
+    with open(r"F:\twitter_video.mp4", "wb") as outfile:
+        outfile.write(response.content)
 
-# Pastikan Anda mengganti URL video Twitter yang ingin diunduh di kode Anda. Juga pastikan bahwa F:\ direktori yang ada pada komputer Anda. Jika folder ini tidak ada, maka Anda harus menggantinya ke lokasi direktori yang benar pada komputer Anda.
+    print("Video successfully downloaded to F:\twitter_video.mp4")
+
+except requests.exceptions.RequestException as e:
+    print("Error occurred during the download:", str(e))
