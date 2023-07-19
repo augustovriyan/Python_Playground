@@ -21,6 +21,9 @@ def main(stdscr):
     # Define obstacles
     obstacles = [(5, 10), (8, 20), (12, 5)]  # Example obstacle positions
 
+    # Initialize score
+    score = 0
+
     # Game loop
     while True:
         # Get user input
@@ -44,6 +47,10 @@ def main(stdscr):
         if (character_y, character_x) in obstacles:
             character_y = 0  # Reset character position if collision occurs
 
+        # Increase the score if character passes an obstacle
+        if character_y == boundary_top:
+            score += 1
+
         # Clear the screen
         stdscr.clear()
 
@@ -53,6 +60,9 @@ def main(stdscr):
         # Draw the obstacles
         for obstacle in obstacles:
             stdscr.addch(obstacle[0], obstacle[1], '#')
+
+        # Display the score
+        stdscr.addstr(0, max_x - 10, f"Score: {score}")
 
         # Refresh the screen
         stdscr.refresh()
