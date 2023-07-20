@@ -50,5 +50,15 @@ if __name__ == "__main__":
             print("Password should contain at least one character.")
             continue
 
+        # Additional password requirements
+        has_uppercase = any(char.isupper() for char in password)
+        has_lowercase = any(char.islower() for char in password)
+        has_digit = any(char.isdigit() for char in password)
+        has_special = any(not char.isalnum() for char in password)
+
+        if not (has_uppercase and has_lowercase and has_digit and has_special):
+            print("Password should contain at least one uppercase letter, one lowercase letter, one digit, and one special character.")
+            continue
+
         crack_time = calculate_crack_time(password_length, character_space)
         print("Estimated crack time:", crack_time)
