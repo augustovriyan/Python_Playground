@@ -44,8 +44,18 @@ while True:
 
                 if ooz > zbuffer[yp][xp]:
                     zbuffer[yp][xp] = ooz
-                    output += ".,-~:;=!*#$@"[luminance_index]
 
+                    # Option 1: Add color to the donut
+                    color = "\033[1;32m"  # Green color
+                    output += color + ".,-~:;=!*#$@"[luminance_index] + "\033[0m"
+
+                    # Option 2: Add a background pattern
+                    if (theta // 6) % 2 == 0:
+                        output += "\033[1;47m \033[0m"  # White background
+                    else:
+                        output += "\033[1;40m \033[0m"  # Black background
+                else:
+                    output += " "
         output += "\n"
 
     # Clear the console and display the donut
