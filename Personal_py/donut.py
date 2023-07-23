@@ -1,5 +1,7 @@
 import math
 import time
+import sys
+import select
 
 # Dimensions of the donut and the screen
 A = 1
@@ -54,11 +56,26 @@ while True:
         output += "\n"
 
     # Clear the console and display the donut
-    print("\033[2J\033[H" + output)
+    sys.stdout.write("\033[2J\033[H" + output)
+    sys.stdout.flush()
 
     # Update the angles for spinning effect
     A += 0.04
     B += 0.02
+
+    # Check for user input to control animation speed and direction
+    if select.select([sys.stdin,],[],[],0.0)[0]:
+        key = sys.stdin.readline().strip()
+        if key == 'q':
+            break
+        elif key == 'f':
+            A += 0.1
+        elif key == 's':
+            A -= 0.1
+        elif key == 'r':
+            B += 0.1
+        elif key == 'l':
+            B -= 0.1
 
     # Pause briefly to control the animation speed
     time.sleep(0.05)
