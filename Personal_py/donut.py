@@ -48,7 +48,7 @@ while True:
                     zbuffer[yp][xp] = ooz
 
                     # Option 1: Add color to the donut
-                    color = "\033[1;32m"  # Green color
+                    color = colors[color_index]
                     output += color + ".,-~:;=!*#$@"[luminance_index] + "\033[0m"
 
                 else:
@@ -76,6 +76,8 @@ while True:
             B += 0.1
         elif key == 'l':
             B -= 0.1
+        elif key == 'c':
+            color_index = (color_index + 1) % len(colors)
 
     # Pause briefly to control the animation speed
     time.sleep(0.05)
