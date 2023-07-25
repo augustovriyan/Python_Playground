@@ -9,6 +9,38 @@ B = 1
 width = 80
 height = 24
 
+# Constants for animation speed and step sizes
+THETA_STEP = 6
+PHI_STEP = 2
+A_STEP = 0.04
+B_STEP = 0.02
+
+# Colors for the donut
+colors = ["\033[91m", "\033[92m", "\033[93m", "\033[94m", "\033[95m", "\033[96m"]
+color_index = 0
+
+# Function to handle user input
+def handle_user_input():
+    if select.select([sys.stdin,],[],[],0.0)[0]:
+        key = sys.stdin.readline().strip()
+        if key == 'q':
+            sys.exit(0)
+        elif key == 'f':
+            global A_STEP
+            A_STEP += 0.01
+        elif key == 's':
+            global A_STEP
+            A_STEP -= 0.01
+        elif key == 'r':
+            global B_STEP
+            B_STEP += 0.01
+        elif key == 'l':
+            global B_STEP
+            B_STEP -= 0.01
+        elif key == 'c':
+            global color_index
+            color_index = (color_index + 1) % len(colors)
+
 # Animation loop
 while True:
     output = ""
@@ -19,11 +51,11 @@ while True:
     cos_B = math.cos(B)
     sin_B = math.sin(B)
 
-    for theta in range(0, 628, 6):
+    for theta in range(0, 628, THETA_STEP):
         costheta = math.cos(theta / 100)
         sintheta = math.sin(theta / 100)
 
-        for phi in range(0, 628, 2):
+        for phi in range(0, 628, PHI_STEP):
             cosphi = math.cos(phi / 100)
             sinphi = math.sin(phi / 100)
 
@@ -60,24 +92,11 @@ while True:
     sys.stdout.flush()
 
     # Update the angles for spinning effect
-    A += 0.04
-    B += 0.02
+    A += A_STEP
+    B += B_STEP
 
-    # Check for user input to control animation speed and direction
-    if select.select([sys.stdin,],[],[],0.0)[0]:
-        key = sys.stdin.readline().strip()
-        if key == 'q':
-            break
-        elif key == 'f':
-            A += 0.1
-        elif key == 's':
-            A -= 0.1
-        elif key == 'r':
-            B += 0.1
-        elif key == 'l':
-            B -= 0.1
-        elif key == 'c':
-            color_index = (color_index + 1) % len(colors)
+    # Handle user input
+    handle_user_input()
 
     # Pause briefly to control the animation speed
     time.sleep(0.05)
