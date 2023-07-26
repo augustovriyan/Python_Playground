@@ -1,22 +1,28 @@
 import random
 import matplotlib.pyplot as plt
+from collections import defaultdict
 
 def roll_dice(num_dice, num_sides):
     rolls = []
-    frequencies = {}  # Dictionary to store the frequencies
+    frequencies = defaultdict(int)  # Default value of 0 for missing keys
 
     for _ in range(num_dice):
         roll = random.randint(1, num_sides)
         rolls.append(roll)
-
-        # Update the frequencies dictionary
-        frequencies[roll] = frequencies.get(roll, 0) + 1
+        frequencies[roll] += 1
 
     return rolls, frequencies
 
 def main():
-    num_dice = int(input("Enter the number of dice to roll: "))
-    num_sides = int(input("Enter the number of sides on each die: "))
+    while True:
+        try:
+            num_dice = int(input("Enter the number of dice to roll: "))
+            num_sides = int(input("Enter the number of sides on each die: "))
+            if num_dice <= 0 or num_sides <= 0:
+                raise ValueError("Number of dice and sides must be positive integers.")
+            break
+        except ValueError as e:
+            print("Invalid input:", e)
 
     rolls, frequencies = roll_dice(num_dice, num_sides)
     total = sum(rolls)
@@ -35,6 +41,10 @@ def main():
     plt.ylabel('Frequency')
     plt.title('Dice Roll Frequencies')
     plt.show()
+
+    repeat = input("Do you want to roll the dice again? (yes/no): ")
+    if repeat.lower() == "yes":
+        main()
 
 if __name__ == "__main__":
     main()
