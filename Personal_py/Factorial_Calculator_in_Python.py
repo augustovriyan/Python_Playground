@@ -10,9 +10,12 @@ def factorial(n):
         return result
 
 if __name__ == "__main__":
-    num = int(input("Enter a number: "))
-    result = factorial(num)
-    if result is None:
-        print("Factorial is not defined for negative numbers.")
-    else:
-        print("Factorial of {} is {}".format(num, result))
+    try:
+        num = int(input("Enter a number: "))
+        result = factorial(num)
+        if result is None:
+            print("Factorial is not defined for negative numbers.")
+        else:
+            print("Factorial of {} is {}".format(num, result))
+    except ValueError:
+        print("Invalid input. Please enter an integer.")
