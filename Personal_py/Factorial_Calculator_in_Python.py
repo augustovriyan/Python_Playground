@@ -10,24 +10,28 @@ def factorial(n):
 
     Raises:
         ValueError: If the input number is negative.
+        TypeError: If the input is not an integer.
     """
+    if not isinstance(n, int):
+        raise TypeError("Input must be an integer.")
     if n < 0:
         raise ValueError("Factorial is not defined for negative numbers.")
     elif n == 0:
         return 1
     else:
-        factorial_result = 1
+        result = 1
         for i in range(1, n + 1):
-            factorial_result *= i
-        return factorial_result
+            result *= i
+        return result
 
 if __name__ == "__main__":
     try:
         num = int(input("Enter a number: "))
         result = factorial(num)
-        print("Factorial of {} is {}".format(num, result))
+        print(f"Factorial of {num} is {result}")
     except ValueError as e:
+        print(str(e))
+    except TypeError as e:
         print(str(e))
     except Exception as e:
         print("An error occurred:", str(e))
-        
