@@ -27,6 +27,22 @@ pairs = [
         r"quit",
         ["Bye-bye. Take care!"]
     ],
+    [
+        r"tell me a joke",
+        ["Why don't scientists trust atoms? Because they make up everything!"]
+    ],
+    [
+        r"what is the weather today?",
+        ["I'm sorry, I don't have access to real-time weather information."]
+    ],
+    [
+        r"what is your favorite color?",
+        ["I'm a chatbot, I don't have preferences."]
+    ],
+    [
+        r"how old are you?",
+        ["I am an AI, so I don't have an age."]
+    ],
 ]
 
 # Create a chatbot instance
