@@ -19,19 +19,20 @@ def factorial(n):
     elif n == 0:
         return 1
     else:
-        result = 1
-        for i in range(1, n + 1):
-            result *= i
-        return result
+        return n * factorial(n - 1)  # Recursive approach
 
 if __name__ == "__main__":
-    try:
-        num = int(input("Enter a number: "))
-        result = factorial(num)
-        print(f"Factorial of {num} is {result}")
-    except ValueError as e:
-        print(str(e))
-    except TypeError as e:
-        print(str(e))
-    except Exception as e:
-        print("An error occurred:", str(e))
+    while True:
+        try:
+            num = int(input("Enter a non-negative integer: "))
+            if num < 0:
+                print("Please enter a non-negative integer.")
+                continue
+            result = factorial(num)
+            print(f"Factorial of {num} is {result}")
+        except ValueError as e:
+            print("Invalid input. Please enter a valid integer.")
+        except TypeError as e:
+            print(str(e))
+        except Exception as e:
+            print("An error occurred:", str(e))
