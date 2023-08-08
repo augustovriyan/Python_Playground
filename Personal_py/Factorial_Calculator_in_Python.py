@@ -22,17 +22,19 @@ def factorial(n):
         return n * factorial(n - 1)  # Recursive approach
 
 if __name__ == "__main__":
-    while True:
-        try:
-            num = int(input("Enter a non-negative integer: "))
+    try:
+        while True:
+            num = int(input("Enter a non-negative integer (Ctrl+C to quit): "))
             if num < 0:
                 print("Please enter a non-negative integer.")
                 continue
             result = factorial(num)
             print(f"Factorial of {num} is {result}")
-        except ValueError as e:
-            print("Invalid input. Please enter a valid integer.")
-        except TypeError as e:
-            print(str(e))
-        except Exception as e:
-            print("An error occurred:", str(e))
+    except ValueError:
+        print("Invalid input. Please enter a valid integer.")
+    except TypeError as e:
+        print(str(e))
+    except KeyboardInterrupt:
+        print("\nProgram terminated by the user.")
+    except Exception as e:
+        print("An error occurred:", str(e))
