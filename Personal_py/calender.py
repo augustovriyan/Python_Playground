@@ -1,19 +1,41 @@
 import calendar
 
-# Get user input for the year and month
-year = int(input("Enter the year: "))
-month = int(input("Enter the month: "))
+def get_user_input(prompt, validator):
+    while True:
+        user_input = input(prompt)
+        try:
+            validated_input = validator(user_input)
+        except ValueError:
+            print("Invalid input. Please try again.")
+            continue
+        return validated_input
 
-# Create the calendar for the specified year and month
-cal = calendar.monthcalendar(year, month)
+def print_calendar_header(year, month):
+    print(f"{calendar.month_name[month]} {year}")
+    print("Mo Tu We Th Fr Sa Su")
 
-# Print the calendar
-print(calendar.month_name[month], year)
-print("Mo Tu We Th Fr Sa Su")
-for week in cal:
-    for day in week:
-        if day == 0:
-            print("  ", end=" ")
+def print_calendar_body(cal):
+    for week in cal:
+        for day in week:
+            if day == 0:
+                print("   ", end=" ")
+            else:
+                print(f"{day:3d}", end=" ")
+        print()
+
+def main():
+    year = get_user_input("Enter the year: ", lambda x: int(x))
+    while True:
+        month = get_user_input("Enter the month: ", lambda x: int(x))
+        if 1 <= month <= 12:
+            break
         else:
-            print(f"{day:2d}", end=" ")
-    print()
+            print("Invalid month. Please enter a valid month (1-12).")
+
+    cal = calendar.monthcalendar(year, month)
+    
+    print_calendar_header(year, month)
+    print_calendar_body(cal)
+
+if __name__ == "__main__":
+    main()
