@@ -1,18 +1,20 @@
 import calendar
 
-def get_user_input(prompt, validator):
+WEEKDAYS = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]
+DAYS_IN_WEEK = 7
+
+def validate_input(prompt, validator):
     while True:
         user_input = input(prompt)
         try:
             validated_input = validator(user_input)
+            return validated_input
         except ValueError:
             print("Invalid input. Please try again.")
-            continue
-        return validated_input
 
 def print_calendar_header(year, month):
     print(f"{calendar.month_name[month]} {year}")
-    print("Mo Tu We Th Fr Sa Su")
+    print(" ".join(WEEKDAYS))
 
 def print_calendar_body(cal):
     for week in cal:
@@ -24,9 +26,9 @@ def print_calendar_body(cal):
         print()
 
 def main():
-    year = get_user_input("Enter the year: ", lambda x: int(x))
+    year = validate_input("Enter the year: ", lambda x: int(x))
     while True:
-        month = get_user_input("Enter the month: ", lambda x: int(x))
+        month = validate_input("Enter the month: ", lambda x: int(x))
         if 1 <= month <= 12:
             break
         else:
