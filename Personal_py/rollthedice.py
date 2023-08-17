@@ -36,10 +36,30 @@ def main():
     x = list(frequencies.keys())
     y = list(frequencies.values())
 
-    plt.bar(x, y)
+    plt.bar(x, y, color='skyblue', edgecolor='black')  # Custom colors and edge color
     plt.xlabel('Dice Roll')
     plt.ylabel('Frequency')
     plt.title('Dice Roll Frequencies')
+
+    total_rolls = sum(y)
+    for i, v in enumerate(y):
+        percentage = (v / total_rolls) * 100
+        plt.text(x[i], v + 0.1, f'{v} ({percentage:.2f}%)', ha='center', va='bottom', fontsize=10)
+
+    plt.xticks(x)
+    plt.grid(axis='y', alpha=0.75)
+
+    plt.tight_layout()
+
+    # Cumulative Frequency Plot
+    cumulative_frequencies = [sum(y[:i + 1]) for i in range(len(y))]
+    plt.figure()
+    plt.plot(x, cumulative_frequencies, marker='o', linestyle='-', color='green')
+    plt.xlabel('Dice Roll')
+    plt.ylabel('Cumulative Frequency')
+    plt.title('Cumulative Dice Roll Frequencies')
+    plt.grid()
+
     plt.show()
 
     repeat = input("Do you want to roll the dice again? (yes/no): ")
