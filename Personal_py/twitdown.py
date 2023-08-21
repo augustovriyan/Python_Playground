@@ -2,7 +2,7 @@ import re
 import urllib.request
 import sys
 
-TWEET_URL = 'https://twitter.com/MasterAlecsDOM/status/1670163475421712384'
+TWEET_URL = 'URL TWITTER VID'
 DEFAULT_MAX_RESOLUTION = 720
 VIDEO_FILENAME = 'test_1.mp4'
 
