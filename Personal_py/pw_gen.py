@@ -22,7 +22,10 @@ def generate_password(length=12, use_punctuation=True):
 def get_valid_password_length():
     while True:
         try:
-            password_length = int(input("Enter the desired password length (minimum {}): ".format(MIN_PASSWORD_LENGTH)))
+            input_length = input("Enter the desired password length (minimum {}): ".format(MIN_PASSWORD_LENGTH))
+            if not input_length:
+                return 12  # Use a default length of 12 if the user simply presses Enter
+            password_length = int(input_length)
             if password_length < MIN_PASSWORD_LENGTH:
                 print("Password length must be greater than or equal to {}.".format(MIN_PASSWORD_LENGTH))
             else:
