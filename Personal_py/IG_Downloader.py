@@ -17,15 +17,20 @@ try:
 
     if media_element:
         media_url = media_element.get("content")
-        
+
+        # Determine the file extension based on the media URL
+        file_extension = "mp4" if "video" in media_url else "jpg"
+
         # Download the media to the specified directory
         response = requests.get(media_url)
         response.raise_for_status()  # Check for any HTTP errors
 
-        with open("downloaded_media.mp4" if "video" in media_url else "downloaded_media.jpg", "wb") as outfile:
+        # Save the downloaded media with a descriptive filename
+        filename = f"downloaded_media.{file_extension}"
+        with open(filename, "wb") as outfile:
             outfile.write(response.content)
 
-        print("Media successfully downloaded")
+        print(f"Media successfully downloaded as '{filename}'")
 
     else:
         print("No media found on the given URL")
