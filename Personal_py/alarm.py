@@ -12,17 +12,20 @@ def set_alarm():
             print("Invalid time format. Please use HH:MM format.")
             return
         
+        # Calculate the alarm time in seconds since midnight
+        alarm_seconds = alarm_hour * 3600 + alarm_minute * 60
+        
         while True:
             current_time = time.localtime()
-            current_hour, current_minute = current_time.tm_hour, current_time.tm_min
+            current_seconds = current_time.tm_hour * 3600 + current_time.tm_min * 60 + current_time.tm_sec
             
-            if current_hour == alarm_hour and current_minute == alarm_minute:
+            if current_seconds == alarm_seconds:
                 print("Wake up! It's time!")
                 playsound("alarm_sound.mp3")  # Replace with the path to your alarm sound file
                 break
             
             # Calculate the time until the next check
-            time_until_next_check = (alarm_hour - current_hour) * 3600 + (alarm_minute - current_minute) * 60
+            time_until_next_check = alarm_seconds - current_seconds
             if time_until_next_check < 0:
                 break  # Break if the alarm time has already passed
             time.sleep(time_until_next_check)
