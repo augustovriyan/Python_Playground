@@ -16,7 +16,7 @@ def factorial(n):
         raise TypeError("Input must be an integer.")
     if n < 0:
         raise ValueError("Factorial is not defined for negative numbers.")
-    elif n == 0:
+    if n == 0:
         return 1
     else:
         return n * factorial(n - 1)  # Recursive approach
