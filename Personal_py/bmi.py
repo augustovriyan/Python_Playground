@@ -1,7 +1,6 @@
 def calculate_bmi(weight, height_cm):
     height_m = height_cm / 100  # Convert height from centimeters to meters
-    bmi = weight / (height_m ** 2)
-    return bmi
+    return weight / (height_m ** 2)
 
 def interpret_bmi(bmi):
     if bmi < 18.5:
@@ -13,25 +12,21 @@ def interpret_bmi(bmi):
     else:
         return "Obese"
 
-# Main program
-weight = None
-while weight is None:
-    weight_input = input("Enter your weight in kilograms: ")
-    try:
-        weight = float(weight_input)
-    except ValueError:
-        print("Invalid weight. Please enter a numeric value.")
+def get_numeric_input(prompt):
+    while True:
+        user_input = input(prompt)
+        try:
+            value = float(user_input)
+            return value
+        except ValueError:
+            print("Invalid input. Please enter a numeric value.")
 
-height = None
-while height is None:
-    height_input = input("Enter your height in centimeters: ")
-    try:
-        height = float(height_input)
-    except ValueError:
-        print("Invalid height. Please enter a numeric value.")
+if __name__ == "__main__":
+    weight = get_numeric_input("Enter your weight in kilograms: ")
+    height = get_numeric_input("Enter your height in centimeters: ")
 
-bmi = calculate_bmi(weight, height)
-category = interpret_bmi(bmi)
+    bmi = calculate_bmi(weight, height)
+    category = interpret_bmi(bmi)
 
-print(f"Your BMI is: {bmi:.2f}")
-print(f"Interpretation: {category}")
+    print(f"Your BMI is: {bmi:.2f}")
+    print(f"Interpretation: {category}")
