@@ -1,9 +1,8 @@
 import calendar
 
 WEEKDAYS = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]
-DAYS_IN_WEEK = 7
 
-def validate_input(prompt, validator):
+def get_validated_input(prompt, validator):
     while True:
         user_input = input(prompt)
         try:
@@ -26,9 +25,9 @@ def print_calendar_body(cal):
         print()
 
 def main():
-    year = validate_input("Enter the year: ", lambda x: int(x))
+    year = get_validated_input("Enter the year: ", lambda x: int(x))
     while True:
-        month = validate_input("Enter the month: ", lambda x: int(x))
+        month = get_validated_input("Enter the month: ", lambda x: int(x))
         if 1 <= month <= 12:
             break
         else:
