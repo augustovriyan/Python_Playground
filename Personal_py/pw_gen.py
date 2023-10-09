@@ -3,8 +3,9 @@ import string
 
 # Constants
 MIN_PASSWORD_LENGTH = 8
+DEFAULT_PASSWORD_LENGTH = 12
 
-def generate_password(length=12, use_punctuation=True):
+def generate_password(length=DEFAULT_PASSWORD_LENGTH, use_punctuation=True):
     """
     Generate a random password with the given length and option to include punctuation.
     
@@ -22,18 +23,19 @@ def generate_password(length=12, use_punctuation=True):
 def get_valid_password_length():
     while True:
         try:
-            input_length = input("Enter the desired password length (minimum {}): ".format(MIN_PASSWORD_LENGTH))
+            input_length = input(f"Enter the desired password length (minimum {MIN_PASSWORD_LENGTH}): ")
             if not input_length:
-                return 12  # Use a default length of 12 if the user simply presses Enter
+                return DEFAULT_PASSWORD_LENGTH
             password_length = int(input_length)
             if password_length < MIN_PASSWORD_LENGTH:
-                print("Password length must be greater than or equal to {}.".format(MIN_PASSWORD_LENGTH))
+                print(f"Password length must be greater than or equal to {MIN_PASSWORD_LENGTH}.")
             else:
                 return password_length
         except (ValueError, KeyboardInterrupt):
             print("Invalid input. Please enter a valid number.")
 
 def main():
+    print("Password Generator")
     password_length = get_valid_password_length()
     password = generate_password(password_length)
     print("Generated password:", password)
