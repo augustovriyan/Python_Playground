@@ -3,7 +3,7 @@ import time
 import sys
 import select
 
-# Dimensions of the donut and the screen
+# Constants for donut dimensions and screen size
 A = 1
 B = 1
 width = 80
@@ -19,32 +19,31 @@ B_STEP = 0.02
 colors = ["\033[91m", "\033[92m", "\033[93m", "\033[94m", "\033[95m", "\033[96m"]
 color_index = 0
 
+# Initialize the z-buffer
+zbuffer = [[0] * width for _ in range(height)]
+
 # Function to handle user input
 def handle_user_input():
     if select.select([sys.stdin,],[],[],0.0)[0]:
         key = sys.stdin.readline().strip()
+        global A_STEP, B_STEP, color_index
+
         if key == 'q':
             sys.exit(0)
         elif key == 'f':
-            global A_STEP
             A_STEP += 0.01
         elif key == 's':
-            global A_STEP
             A_STEP -= 0.01
         elif key == 'r':
-            global B_STEP
             B_STEP += 0.01
         elif key == 'l':
-            global B_STEP
             B_STEP -= 0.01
         elif key == 'c':
-            global color_index
             color_index = (color_index + 1) % len(colors)
 
-# Animation loop
-while True:
+# Function to render the donut
+def render_donut():
     output = ""
-    zbuffer = [[0] * width for _ in range(height)]
 
     cos_A = math.cos(A)
     sin_A = math.sin(A)
@@ -79,7 +78,7 @@ while True:
                 if ooz > zbuffer[yp][xp]:
                     zbuffer[yp][xp] = ooz
 
-                    # Option 1: Add color to the donut
+                    # Add color to the donut
                     color = colors[color_index]
                     output += color + ".,-~:;=!*#$@"[luminance_index] + "\033[0m"
 
@@ -90,6 +89,11 @@ while True:
     # Clear the console and display the donut
     sys.stdout.write("\033[2J\033[H" + output)
     sys.stdout.flush()
+
+# Animation loop
+while True:
+    # Render the donut
+    render_donut()
 
     # Update the angles for spinning effect
     A += A_STEP
