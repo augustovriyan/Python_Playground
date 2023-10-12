@@ -4,16 +4,13 @@ from playsound import playsound
 def get_valid_alarm_time():
     while True:
         try:
-            # Get user input for the alarm time
             alarm_time = input("Enter the alarm time in HH:MM format: ")
             alarm_hour, alarm_minute = map(int, alarm_time.split(":"))
             
-            # Validate the input
             if 0 <= alarm_hour <= 23 and 0 <= alarm_minute <= 59:
                 return alarm_hour, alarm_minute
             else:
                 print("Invalid time format. Please use HH:MM format.")
-
         except ValueError:
             print("Invalid input. Please use HH:MM format.")
 
@@ -36,7 +33,7 @@ def set_alarm():
         time.sleep(seconds_until_alarm)
 
         print("Wake up! It's time!")
-        playsound("alarm_sound.mp3")  # Replace with the path to your alarm sound file
+        playsound("alarm_sound.mp3")
 
     except KeyboardInterrupt:
         print("Alarm clock stopped.")
