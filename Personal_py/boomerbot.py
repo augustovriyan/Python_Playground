@@ -1,10 +1,11 @@
 import telegram
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
+# Handlers
 def start(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text="Hello! Welcome to my bot.")
 
-def aboutme(update, context):
+def about_me(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text="I am a bot. Nice to meet you!")
 
 def hello(update, context):
@@ -12,30 +13,19 @@ def hello(update, context):
     if 'hello' in message_text:
         context.bot.send_message(chat_id=update.effective_chat.id, text="Hello there!")
 
-def option1(update, context):
+def option_1(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text="Option 1 selected!")
 
-def option2(update, context):
+def option_2(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text="Option 2 selected!")
 
-def handle_dm2(update, context):
-    # Retrieve the message text and sender's ID
-    message_text = update.message.text
-    sender_id = update.message.from_user.id
-
-    # Send a response to the DM sender
-    response_text = f"Thank you for reaching out! Your message: {message_text}"
-    context.bot.send_message(chat_id=sender_id, text=response_text)
-
-def handle_dm(update, context):
+def handle_direct_message(update, context):
     user_id = update.message.from_user.id
     message_text = update.message.text
 
     reply_text = "Thanks for reaching out! I will check your message shortly."
 
     context.bot.send_message(chat_id=user_id, text=reply_text)
-
-# Additional Functions and Handlers
 
 def help(update, context):
     help_text = "Here are the available commands:\n\n" \
@@ -66,31 +56,22 @@ def inline_query(update, context):
     ]
     context.bot.answer_inline_query(update.inline_query.id, results)
 
+# Main Function
 def main():
     token = "YOUR_TOKEN_HERE"  # Replace with your actual bot token
     bot = telegram.Bot(token=token)
     updater = Updater(token=token, use_context=True)
     dispatcher = updater.dispatcher
 
-    start_handler = CommandHandler("start", start)
-    aboutme_handler = CommandHandler("aboutme", aboutme)
-    hello_handler = MessageHandler(Filters.text & (~Filters.command) & Filters.regex(r'(?i)hello'), hello)
-    option1_handler = CommandHandler("option1", option1)
-    option2_handler = CommandHandler("option2", option2)
-    help_handler = CommandHandler("help", help)
-    unknown_handler = MessageHandler(Filters.command, unknown)
-    echo_handler = MessageHandler(Filters.text & (~Filters.command), echo)
-    inline_query_handler = MessageHandler(Filters.inline_query, inline_query)
-
-    dispatcher.add_handler(start_handler)
-    dispatcher.add_handler(aboutme_handler)
-    dispatcher.add_handler(hello_handler)
-    dispatcher.add_handler(option1_handler)
-    dispatcher.add_handler(option2_handler)
-    dispatcher.add_handler(help_handler)
-    dispatcher.add_handler(unknown_handler)
-    dispatcher.add_handler(echo_handler)
-    dispatcher.add_handler(inline_query_handler)
+    dispatcher.add_handler(CommandHandler("start", start))
+    dispatcher.add_handler(CommandHandler("aboutme", about_me))
+    dispatcher.add_handler(MessageHandler(Filters.text & (~Filters.command) & Filters.regex(r'(?i)hello'), hello))
+    dispatcher.add_handler(CommandHandler("option1", option_1))
+    dispatcher.add_handler(CommandHandler("option2", option_2))
+    dispatcher.add_handler(CommandHandler("help", help))
+    dispatcher.add_handler(MessageHandler(Filters.command, unknown))
+    dispatcher.add_handler(MessageHandler(Filters.text & (~Filters.command), echo))
+    dispatcher.add_handler(MessageHandler(Filters.inline_query, inline_query))
 
     updater.start_polling()
 
