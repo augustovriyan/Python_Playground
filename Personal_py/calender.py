@@ -25,8 +25,7 @@ def print_calendar_body(cal):
         print()
 
 def main():
-    year = get_validated_input("Enter the year: ", lambda x: int(x)
-    )
+    year = get_validated_input("Enter the year: ", lambda x: int(x))
     while True:
         month = get_validated_input("Enter the month: ", lambda x: int(x))
         if 1 <= month <= 12:
