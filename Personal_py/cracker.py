@@ -28,15 +28,15 @@ def seconds_to_readable_time(seconds):
 
     return ', '.join(time_parts)
 
-def is_strong_password(password):
+def password_strength_meter(password):
     length = len(password)
     character_space = len(set(password))
 
     if length < 6 or length > 12:
-        return False, "Password length should be between 6 and 12 characters."
+        return "Weak - Password length should be between 6 and 12 characters."
 
     if character_space < 4:
-        return False, "Password should contain at least four different characters."
+        return "Weak - Password should contain at least four different characters."
 
     requirements = {
         'uppercase': any(char.isupper() for char in password),
@@ -46,11 +46,11 @@ def is_strong_password(password):
     }
 
     if all(requirements.values()):
-        return True, "Strong password"
+        return "Strong - Password meets all requirements."
     else:
-        return False, "Password should contain at least one uppercase letter, one lowercase letter, one digit, and one special character."
+        return "Moderate - Password should contain at least one uppercase letter, one lowercase letter, one digit, and one special character."
 
-if __name__ == "__main__":
+if __name__ == "__main":
     while True:
         password = input("Enter the password (6-12 characters) (enter '0' to exit): ")
 
@@ -58,12 +58,10 @@ if __name__ == "__main__":
             print("Exiting the program...")
             break
 
-        is_strong, message = is_strong_password(password)
+        strength = password_strength_meter(password)
+        print("Password Strength:", strength)
 
-        if is_strong:
-            password_length = len(password)
-            character_space = len(set(password))
-            crack_time = calculate_crack_time(password_length, character_space)
-            print("Estimated crack time:", crack_time)
-        else:
-            print(message)
+        password_length = len(password)
+        character_space = len(set(password))
+        crack_time = calculate_crack_time(password_length, character_space)
+        print("Estimated crack time:", crack_time)
