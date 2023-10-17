@@ -1,3 +1,4 @@
+# Define mathematical operations
 def add(x, y):
     return x + y
 
@@ -20,6 +21,7 @@ def modulus(x, y):
         return "Error! Modulus by zero."
     return x % y
 
+# Display calculator menu
 print("Calculator")
 print("Select operation:")
 print("1. Add")
@@ -30,12 +32,15 @@ print("5. Exponentiate")
 print("6. Modulus")
 
 while True:
+    # User input for operation choice
     choice = input("Enter choice (1-6): ")
 
     if choice in ('1', '2', '3', '4', '5', '6'):
+        # User input for numbers
         num1 = float(input("Enter first number: "))
         num2 = float(input("Enter second number: "))
 
+        # Perform the selected operation and display the result
         if choice == '1':
             print(f"{num1} + {num2} = {add(num1, num2)}")
         elif choice == '2':
