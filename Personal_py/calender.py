@@ -11,11 +11,15 @@ def get_validated_input(prompt, validator):
         except ValueError:
             print("Invalid input. Please try again.")
 
-def print_calendar_header(year, month):
+def print_calendar(year, month):
+    # Get the calendar matrix for the specified year and month
+    cal = calendar.monthcalendar(year, month)
+
+    # Print the calendar header
     print(f"{calendar.month_name[month]} {year}")
     print(" ".join(WEEKDAYS))
 
-def print_calendar_body(cal):
+    # Print the calendar body
     for week in cal:
         for day in week:
             if day == 0:
@@ -33,10 +37,8 @@ def main():
         else:
             print("Invalid month. Please enter a valid month (1-12).")
 
-    cal = calendar.monthcalendar(year, month)
-    
-    print_calendar_header(year, month)
-    print_calendar_body(cal)
+    # Call the print_calendar function to display the calendar
+    print_calendar(year, month)
 
 if __name__ == "__main__":
     main()
