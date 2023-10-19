@@ -11,10 +11,12 @@ def get_player_input():
         player_input = input("Enter your move (1-9): ")
         try:
             player_input = int(player_input)
-            if player_input in range(1, 10):
+            if 1 <= player_input <= 9:
                 return player_input
+            else:
+                print("Invalid input. Please enter a number between 1 and 9.")
         except ValueError:
-            pass
+            print("Invalid input. Please enter a number between 1 and 9.")
 
 def check_winner(board):
     for row in range(3):
@@ -29,10 +31,7 @@ def check_winner(board):
     return None
 
 def get_computer_input(board):
-    available_moves = []
-    for i in range(9):
-        if board[i] == " ":
-            available_moves.append(i)
+    available_moves = [i + 1 for i, val in enumerate(board) if val == " "]
     return random.choice(available_moves)
 
 def main():
@@ -42,20 +41,26 @@ def main():
         draw_board(board)
         if player == "X":
             move = get_player_input()
-            while board[move - 1] != " ":
-                print("Invalid move. Please try again.")
-                move = get_player_input()
         else:
             move = get_computer_input(board)
-        board[move - 1] = player
-        if check_winner(board):
+
+        if board[move - 1] == " ":
+            board[move - 1] = player
+        else:
+            print("Invalid move. Please try again.")
+            continue
+
+        winner = check_winner(board)
+        if winner:
             draw_board(board)
-            print(player, "wins!")
+            print(f"{winner} wins!")
             break
+
         if " " not in board:
             draw_board(board)
             print("It's a draw!")
             break
+
         player = "O" if player == "X" else "X"
 
 if __name__ == "__main__":
