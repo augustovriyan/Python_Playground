@@ -38,5 +38,5 @@ def set_alarm():
     except KeyboardInterrupt:
         print("Alarm clock stopped.")
 
-if __name__ == "__main__":
+if __name__ == "__main":
     set_alarm()
