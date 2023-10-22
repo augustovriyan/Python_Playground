@@ -3,49 +3,56 @@ import random
 def draw_board(board):
     print("-------------")
     for row in board:
-        print("| " + " ".join(row) + " |")
-    print("-------------")
+        print("| " + " | ".join(row) + " |")
+        print("-------------")
 
 def get_player_input():
     while True:
-        player_input = input("Enter your move (1-9): ")
         try:
-            player_input = int(player_input)
+            player_input = int(input("Enter your move (1-9): ")
             if 1 <= player_input <= 9:
                 return player_input
-            else:
-                print("Invalid input. Please enter a number between 1 and 9.")
+            print("Invalid input. Please enter a number between 1 and 9.")
         except ValueError:
             print("Invalid input. Please enter a number between 1 and 9.")
 
 def check_winner(board):
-    for row in range(3):
-        if board[row][0] == board[row][1] == board[row][2] != " ":
-            return board[row][0]
-        if board[0][row] == board[1][row] == board[2][row] != " ":
-            return board[0][row]
-    if board[0][0] == board[1][1] == board[2][2] != " ":
+    for row in board:
+        if all(cell == row[0] and cell != " " for cell in row):
+            return row[0]
+
+    for col in range(3):
+        if all(row[col] == board[0][col] and board[0][col] != " " for row in board):
+            return board[0][col]
+
+    if all(board[i][i] == board[0][0] and board[i][i] != " " for i in range(3)):
         return board[0][0]
-    if board[0][2] == board[1][1] == board[2][0] != " ":
+
+    if all(board[i][2 - i] == board[0][2] and board[i][2 - i] != " " for i in range(3)):
         return board[0][2]
+
     return None
 
 def get_computer_input(board):
-    available_moves = [i + 1 for i, val in enumerate(board) if val == " "]
+    available_moves = [str(i + 1) for i, cell in enumerate(board) if cell == " "]
     return random.choice(available_moves)
 
 def main():
-    board = [" "] * 9
+    board = [[" " for _ in range(3)] for _ in range(3)]
     player = "X"
+
     while True:
         draw_board(board)
+
         if player == "X":
             move = get_player_input()
         else:
             move = get_computer_input(board)
 
-        if board[move - 1] == " ":
-            board[move - 1] = player
+        row, col = divmod(move - 1, 3)
+
+        if board[row][col] == " ":
+            board[row][col] = player
         else:
             print("Invalid move. Please try again.")
             continue
@@ -56,7 +63,7 @@ def main():
             print(f"{winner} wins!")
             break
 
-        if " " not in board:
+        if all(cell != " " for row in board for cell in row):
             draw_board(board)
             print("It's a draw!")
             break
