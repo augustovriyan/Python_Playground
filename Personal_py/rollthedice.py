@@ -1,42 +1,39 @@
 import random
 import matplotlib.pyplot as plt
-from collections import defaultdict
+from collections import Counter
 
 def roll_dice(num_dice, num_sides):
-    rolls = []
-    frequencies = defaultdict(int)  # Default value of 0 for missing keys
-
-    for _ in range(num_dice):
-        roll = random.randint(1, num_sides)
-        rolls.append(roll)
-        frequencies[roll] += 1
+    rolls = [random.randint(1, num_sides) for _ in range(num_dice)]
+    frequencies = Counter(rolls)  # Use Counter to count frequencies
 
     return rolls, frequencies
 
-def main():
+def get_positive_integer_input(prompt):
     while True:
         try:
-            num_dice = int(input("Enter the number of dice to roll: "))
-            num_sides = int(input("Enter the number of sides on each die: "))
-            if num_dice <= 0 or num_sides <= 0:
-                raise ValueError("Number of dice and sides must be positive integers.")
-            break
+            value = int(input(prompt))
+            if value <= 0:
+                raise ValueError("Value must be a positive integer.")
+            return value
         except ValueError as e:
             print("Invalid input:", e)
+
+def main():
+    num_dice = get_positive_integer_input("Enter the number of dice to roll: ")
+    num_sides = get_positive_integer_input("Enter the number of sides on each die: ")
 
     rolls, frequencies = roll_dice(num_dice, num_sides)
     total = sum(rolls)
 
-    print("Rolling {} dice with {} sides each...".format(num_dice, num_sides))
-    print("Results: {}".format(rolls))
-    print("Total: {}".format(total))
-    print("Frequencies: {}".format(frequencies))
+    print(f"Rolling {num_dice} dice with {num_sides} sides each...")
+    print(f"Results: {rolls}")
+    print(f"Total: {total}")
+    print(f"Frequencies: {dict(frequencies)}")
 
     # Plotting the histogram
-    x = list(frequencies.keys())
-    y = list(frequencies.values())
+    x, y = zip(*frequencies.items())
 
-    plt.bar(x, y, color='skyblue', edgecolor='black')  # Custom colors and edge color
+    plt.bar(x, y, color='skyblue', edgecolor='black')
     plt.xlabel('Dice Roll')
     plt.ylabel('Frequency')
     plt.title('Dice Roll Frequencies')
@@ -52,7 +49,7 @@ def main():
     plt.tight_layout()
 
     # Cumulative Frequency Plot
-    cumulative_frequencies = [sum(y[:i + 1]) for i in range(len(y))]
+    cumulative_frequencies = [sum(y[:i + 1]) for i in range(len(y)]
     plt.figure()
     plt.plot(x, cumulative_frequencies, marker='o', linestyle='-', color='green')
     plt.xlabel('Dice Roll')
