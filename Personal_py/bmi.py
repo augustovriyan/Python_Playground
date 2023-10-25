@@ -20,7 +20,7 @@ def get_numeric_input(prompt):
         except ValueError:
             print("Invalid input. Please enter a numeric value.")
 
-if __name__ == "__main__":
+def main():
     print("BMI Calculator")
     weight = get_numeric_input("Enter your weight in kilograms: ")
     height = get_numeric_input("Enter your height in centimeters: ")
@@ -30,3 +30,6 @@ if __name__ == "__main__":
 
     print(f"Your BMI is: {bmi:.2f}")
     print(f"Interpretation: {category}")
+
+if __name__ == "__main__":
+    main()
