@@ -3,8 +3,7 @@ import tkinter as tk
 class CounterApp:
     def __init__(self, root):
         self.root = root
-        self.root.title("Counter App")
-
+        root.title("Counter App")
         self.count = 0
 
         self.label = tk.Label(root, text="Click the button to start counting!")
@@ -13,14 +12,14 @@ class CounterApp:
         self.counter_label = tk.Label(root, text="")
         self.counter_label.pack()
 
-        self.start_button = tk.Button(root, text="Start", command=self.start_counter)
-        self.start_button.pack()
+        self.start_button = self.create_button("Start", self.start_counter)
+        self.restart_button = self.create_button("Restart", self.restart_counter, state=tk.DISABLED)
+        self.exit_button = self.create_button("Exit", root.quit)
 
-        self.restart_button = tk.Button(root, text="Restart", command=self.restart_counter, state=tk.DISABLED)
-        self.restart_button.pack()
-
-        self.exit_button = tk.Button(root, text="Exit", command=root.quit)
-        self.exit_button.pack()
+    def create_button(self, text, command, state=tk.NORMAL):
+        button = tk.Button(self.root, text=text, command=command, state=state)
+        button.pack()
+        return button
 
     def start_counter(self):
         self.count += 1
