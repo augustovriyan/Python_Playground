@@ -43,9 +43,6 @@ pairs = [
         r"how old are you?",
         ["I am an AI, so I don't have an age."]
     ],
-]
-# Add more pairs to the list
-pairs.extend([
     [
         r"tell me about yourself",
         ["I am a language model AI created by OpenAI. I'm here to help you with your questions and tasks."]
@@ -78,9 +75,7 @@ pairs.extend([
         r"what's the meaning of life?",
         ["The meaning of life is a philosophical question that has been debated for centuries. It's up to each individual to find their own meaning."]
     ],
-])
-
-
+]
 
 # Create a chatbot instance
 chatbot = Chat(pairs, reflections)
