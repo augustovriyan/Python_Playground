@@ -6,9 +6,8 @@ MIN_PASSWORD_LENGTH = 8
 DEFAULT_PASSWORD_LENGTH = 12
 
 def generate_password(length=DEFAULT_PASSWORD_LENGTH, use_punctuation=True):
-    """
-    Generate a random password with the given length and option to include punctuation.
-    
+    """Generate a random password with the given length and option to include punctuation.
+
     :param length: Length of the password (default is 12)
     :param use_punctuation: Include punctuation characters (default is True)
     :return: A random password
