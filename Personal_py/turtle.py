@@ -1,19 +1,19 @@
 import turtle
 
-# Create a turtle screen and turtle object
-window = turtle.Screen()
-t = turtle.Turtle()
+def draw_square(side_length):
+    for _ in range(4):
+        turtle.forward(side_length)
+        turtle.right(90)
 
-# Set the turtle's speed (1 = slowest, 10 = fastest)
-t.speed(2)
+def main():
+    window = turtle.Screen()
+    t = turtle.Turtle()
+    t.speed(2)
+    
+    side_length = 150  # You can adjust this value as needed
+    draw_square(side_length)
+    
+    window.exitonclick()
 
-# Define the side length of the square
-side_length = 150  # You can adjust this value as needed
-
-# Draw a square
-for _ in range(4):
-    t.forward(side_length)  # Move forward by the specified side length
-    t.right(90)             # Turn right by 90 degrees
-
-# Close the turtle graphics window when clicked
-window.exitonclick()
+if __name__ == "__main__":
+    main()
