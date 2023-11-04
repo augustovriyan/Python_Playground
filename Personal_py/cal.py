@@ -31,36 +31,34 @@ print("4. Divide")
 print("5. Exponentiate")
 print("6. Modulus")
 
+# User input for operation choice
 while True:
-    # User input for operation choice
     choice = input("Enter choice (1-6): ")
-
+    
     if choice in ('1', '2', '3', '4', '5', '6'):
-        # User input for numbers
         num1 = float(input("Enter first number: "))
         num2 = float(input("Enter second number: "))
+        
+        result = None
 
-        # Perform the selected operation and display the result
         if choice == '1':
-            print(f"{num1} + {num2} = {add(num1, num2)}")
+            result = add(num1, num2)
         elif choice == '2':
-            print(f"{num1} - {num2} = {subtract(num1, num2)}")
+            result = subtract(num1, num2)
         elif choice == '3':
-            print(f"{num1} * {num2} = {multiply(num1, num2)}")
+            result = multiply(num1, num2)
         elif choice == '4':
             result = divide(num1, num2)
-            if isinstance(result, str):
-                print(result)
-            else:
-                print(f"{num1} / {num2} = {result}")
         elif choice == '5':
-            print(f"{num1} ** {num2} = {exponentiate(num1, num2)}")
+            result = exponentiate(num1, num2)
         elif choice == '6':
             result = modulus(num1, num2)
-            if isinstance(result, str):
-                print(result)
-            else:
-                print(f"{num1} % {num2} = {result}")
+
+        if isinstance(result, str):
+            print(result)
+        else:
+            operation = { '1': '+', '2': '-', '3': '*', '4': '/', '5': '**', '6': '%' }
+            print(f"{num1} {operation[choice]} {num2} = {result}")
         break
     else:
         print("Invalid input. Please try again.")
