@@ -1,12 +1,6 @@
 def is_leap_year(year):
-    if year % 4 == 0:
-        if year % 100 == 0:
-            if year % 400 == 0:
-                return True
-            else:
-                return False
-        else:
-            return True
+    if (year % 4 == 0 and year % 100 != 0) or (year % 400 == 0):
+        return True
     else:
         return False
 
@@ -20,7 +14,7 @@ while True:
     try:
         year = int(year)
     except ValueError:
-        print("Invalid input. Please input numeric value only for the year leap to work.")
+        print("Invalid input. Please input a numeric value only for the year leap to work.")
         continue
 
     if is_leap_year(year):
