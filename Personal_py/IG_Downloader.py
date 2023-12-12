@@ -1,3 +1,4 @@
+import os
 import requests
 from bs4 import BeautifulSoup
 import re
@@ -25,12 +26,15 @@ def download_instagram_media(post_url, download_dir="./"):
             # Determine the file extension based on the media URL
             file_extension = "mp4" if "video" in media_url else "jpg"
 
+            # Create the download directory if it doesn't exist
+            os.makedirs(download_dir, exist_ok=True)
+
+            # Construct the full file path
+            filename = os.path.join(download_dir, f"downloaded_media.{file_extension}")
+
             # Download the media to the specified directory
             response = requests.get(media_url)
             response.raise_for_status()  # Check for any HTTP errors
-
-            # Construct the full file path
-            filename = f"{download_dir}/downloaded_media.{file_extension}"
 
             # Save the downloaded media with a descriptive filename
             with open(filename, "wb") as outfile:
