@@ -1,8 +1,6 @@
 import time
 from playsound import playsound
 
-alarm_times = []
-
 def get_valid_alarm_time():
     while True:
         try:
@@ -18,21 +16,30 @@ def get_valid_alarm_time():
 
 def set_alarm(alarm_hour, alarm_minute):
     try:
-        while time.strftime("%H:%M") != f"{alarm_hour:02d}:{alarm_minute:02d}":
+        while True:
+            current_time = time.localtime(time.time())
+            if current_time.tm_hour == alarm_hour and current_time.tm_min == alarm_minute:
+                break
             time.sleep(1)
         print("It's time!")
         playsound("alarm_sound.mp3")
     except KeyboardInterrupt:
         print("Alarm clock stopped.")
 
-while True:
-    alarm_time = get_valid_alarm_time()
-    if alarm_time is None:
-        break
+def main():
+    alarm_times = []
 
-    alarm_times.append(alarm_time)
-    alarm_times.sort()
-    print(f"Alarm set for {alarm_time[0]:02d}:{alarm_time[1]:02d}")
+    while True:
+        alarm_time = get_valid_alarm_time()
+        if alarm_time is None:
+            break
 
-for alarm_time in alarm_times:
-    set_alarm(alarm_time[0], alarm_time[1])
+        alarm_times.append(alarm_time)
+        alarm_times.sort()
+        print(f"Alarm set for {alarm_time[0]:02d}:{alarm_time[1]:02d}")
+
+    for alarm_time in alarm_times:
+        set_alarm(alarm_time[0], alarm_time[1])
+
+if __name__ == "__main__":
+    main()
