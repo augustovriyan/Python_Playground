@@ -2,7 +2,7 @@ import os
 from tqdm import tqdm
 
 def find_video_files(search_dirs, video_title):
-    video_extensions = [".mkv", ".mp4", ".ts", ".webm"]
+    video_extensions = {".mkv", ".mp4", ".ts", ".webm"}
     num_files_searched = 0
     num_files_matched = 0
     
@@ -10,10 +10,10 @@ def find_video_files(search_dirs, video_title):
         for root, dirs, files in os.walk(start_dir):
             for file in tqdm(files, desc="Searching files", unit="file"):
                 num_files_searched += 1
-                if os.path.splitext(file)[1] in video_extensions:
-                    if video_title.lower() in file.lower():
-                        num_files_matched += 1
-                        print(os.path.join(root, file))
+                _, extension = os.path.splitext(file)
+                if extension.lower() in video_extensions and video_title.lower() in file.lower():
+                    num_files_matched += 1
+                    print(os.path.join(root, file))
     
     print(f"Finished searching. {num_files_matched} files matched out of {num_files_searched} searched.")
 
