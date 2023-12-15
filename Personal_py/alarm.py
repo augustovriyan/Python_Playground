@@ -7,10 +7,13 @@ def get_valid_alarm_time():
             alarm_time = input("Enter the alarm time in HH:MM format or 'exit' to stop: ")
             if alarm_time.lower() == 'exit':
                 return None
+
             alarm_hour, alarm_minute = map(int, alarm_time.split(":"))
+
             if 0 <= alarm_hour <= 23 and 0 <= alarm_minute <= 59:
                 return alarm_hour, alarm_minute
-            print("Invalid time format. Please use HH:MM format.")
+            else:
+                print("Invalid time format. Please use HH:MM format and ensure the values are within the correct range.")
         except ValueError:
             print("Invalid input. Please use HH:MM format.")
 
@@ -21,13 +24,17 @@ def set_alarm(alarm_hour, alarm_minute):
             if current_time.tm_hour == alarm_hour and current_time.tm_min == alarm_minute:
                 break
             time.sleep(1)
+
         print("It's time!")
         playsound("alarm_sound.mp3")
+
     except KeyboardInterrupt:
         print("Alarm clock stopped.")
 
 def main():
     alarm_times = []
+
+    print("Welcome to the Alarm Clock App!")
 
     while True:
         alarm_time = get_valid_alarm_time()
