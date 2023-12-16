@@ -4,7 +4,7 @@ import random
 # Constants
 OBSTACLE_PROBABILITY = 0.1
 
-def handle_user_input(stdscr, character_y, character_x, boundaries):
+def handle_user_input(character_y, character_x, boundaries):
     key = stdscr.getch()
 
     if key == ord('q'):
@@ -42,7 +42,7 @@ def main(stdscr):
     score = 0
 
     while True:
-        if handle_user_input(stdscr, character_y, character_x, boundaries):
+        if handle_user_input(character_y, character_x, boundaries):
             break
 
         if (character_y, character_x) in obstacles:
