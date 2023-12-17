@@ -16,10 +16,7 @@ def factorial(n):
         raise TypeError("Input must be an integer.")
     if n < 0:
         raise ValueError("Factorial is not defined for negative numbers.")
-    if n == 0:
-        return 1
-    else:
-        return n * factorial(n - 1)  # Recursive approach
+    return 1 if n == 0 else n * factorial(n - 1)  # Recursive approach
 
 if __name__ == "__main__":
     try:
@@ -27,9 +24,9 @@ if __name__ == "__main__":
             num = int(input("Enter a non-negative integer (Ctrl+C to quit): "))
             if num < 0:
                 print("Please enter a non-negative integer.")
-                continue
-            result = factorial(num)
-            print(f"Factorial of {num} is {result}")
+            else:
+                result = factorial(num)
+                print(f"Factorial of {num} is {result}")
     except ValueError:
         print("Invalid input. Please enter a valid integer.")
     except TypeError as e:
