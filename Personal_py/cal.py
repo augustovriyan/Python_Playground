@@ -9,36 +9,50 @@ def multiply(x, y):
     return x * y
 
 def divide(x, y):
-    if y == 0:
+    try:
+        result = x / y
+        if y == 0:
+            raise ZeroDivisionError
+        return result
+    except ZeroDivisionError:
         return "Error! Division by zero."
-    return x / y
 
 def exponentiate(x, y):
     return x ** y
 
 def modulus(x, y):
-    if y == 0:
+    try:
+        result = x % y
+        if y == 0:
+            raise ZeroDivisionError
+        return result
+    except ZeroDivisionError:
         return "Error! Modulus by zero."
-    return x % y
 
 # Display calculator menu
-print("Calculator")
-print("Select operation:")
-print("1. Add")
-print("2. Subtract")
-print("3. Multiply")
-print("4. Divide")
-print("5. Exponentiate")
-print("6. Modulus")
+def display_menu():
+    print("Calculator")
+    print("Select operation:")
+    print("1. Add")
+    print("2. Subtract")
+    print("3. Multiply")
+    print("4. Divide")
+    print("5. Exponentiate")
+    print("6. Modulus")
 
 # User input for operation choice
 while True:
+    display_menu()
     choice = input("Enter choice (1-6): ")
     
     if choice in ('1', '2', '3', '4', '5', '6'):
-        num1 = float(input("Enter first number: "))
-        num2 = float(input("Enter second number: "))
-        
+        try:
+            num1 = float(input("Enter first number: "))
+            num2 = float(input("Enter second number: "))
+        except ValueError:
+            print("Invalid input. Please enter valid numbers.")
+            continue
+
         result = None
 
         if choice == '1':
@@ -57,8 +71,11 @@ while True:
         if isinstance(result, str):
             print(result)
         else:
-            operation = { '1': '+', '2': '-', '3': '*', '4': '/', '5': '**', '6': '%' }
+            operation = {'1': '+', '2': '-', '3': '*', '4': '/', '5': '**', '6': '%'}
             print(f"{num1} {operation[choice]} {num2} = {result}")
-        break
+
+        another_calculation = input("Do you want to perform another calculation? (yes/no): ").lower()
+        if another_calculation != 'yes':
+            break
     else:
         print("Invalid input. Please try again.")
