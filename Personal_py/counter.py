@@ -24,32 +24,26 @@ class CounterApp:
     def start_counter(self):
         self.count += 1
         self.update_counter_label()
+
         if self.count <= 99:
             self.root.after(1000, self.start_counter)
         else:
-            self.disable_start_button()
-            self.enable_restart_button()
+            self.disable_start_restart_buttons()
 
     def restart_counter(self):
         self.count = 0
         self.update_counter_label()
         self.enable_start_button()
-        self.disable_restart_button()
 
     def update_counter_label(self):
-        self.counter_label.config(text=str(self.count))
+        self.counter_label.config(text=f"{self.count}")
 
     def enable_start_button(self):
         self.start_button.config(state=tk.NORMAL)
 
-    def disable_start_button(self):
+    def disable_start_restart_buttons(self):
         self.start_button.config(state=tk.DISABLED)
-
-    def enable_restart_button(self):
         self.restart_button.config(state=tk.NORMAL)
-
-    def disable_restart_button(self):
-        self.restart_button.config(state=tk.DISABLED)
 
 if __name__ == "__main__":
     root = tk.Tk()
