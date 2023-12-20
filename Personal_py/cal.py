@@ -10,24 +10,22 @@ def multiply(x, y):
 
 def divide(x, y):
     try:
-        result = x / y
         if y == 0:
-            raise ZeroDivisionError
-        return result
-    except ZeroDivisionError:
-        return "Error! Division by zero."
+            raise ZeroDivisionError("Error! Division by zero.")
+        return x / y
+    except ZeroDivisionError as e:
+        return str(e)
 
 def exponentiate(x, y):
     return x ** y
 
 def modulus(x, y):
     try:
-        result = x % y
         if y == 0:
-            raise ZeroDivisionError
-        return result
-    except ZeroDivisionError:
-        return "Error! Modulus by zero."
+            raise ZeroDivisionError("Error! Modulus by zero.")
+        return x % y
+    except ZeroDivisionError as e:
+        return str(e)
 
 # Display calculator menu
 def display_menu():
@@ -40,7 +38,7 @@ def display_menu():
     print("5. Exponentiate")
     print("6. Modulus")
 
-# User input for operation choice
+# Main calculator loop
 while True:
     display_menu()
     choice = input("Enter choice (1-6): ")
@@ -55,25 +53,15 @@ while True:
 
         result = None
 
-        if choice == '1':
-            result = add(num1, num2)
-        elif choice == '2':
-            result = subtract(num1, num2)
-        elif choice == '3':
-            result = multiply(num1, num2)
-        elif choice == '4':
-            result = divide(num1, num2)
-        elif choice == '5':
-            result = exponentiate(num1, num2)
-        elif choice == '6':
-            result = modulus(num1, num2)
+        # Perform selected operation
+        operations = {'1': add, '2': subtract, '3': multiply, '4': divide, '5': exponentiate, '6': modulus}
+        try:
+            result = operations[choice](num1, num2)
+            print(f"Result: {num1} {'+'.join(['', '-', '*', '/', '**', '%'][int(choice) - 1])} {num2} = {result}")
+        except Exception as e:
+            print(e)
 
-        if isinstance(result, str):
-            print(result)
-        else:
-            operation = {'1': '+', '2': '-', '3': '*', '4': '/', '5': '**', '6': '%'}
-            print(f"{num1} {operation[choice]} {num2} = {result}")
-
+        # Ask user if they want to continue
         another_calculation = input("Do you want to perform another calculation? (yes/no): ").lower()
         if another_calculation != 'yes':
             break
