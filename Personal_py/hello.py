@@ -1,72 +1,72 @@
-
-print("Hello")
+# Welcome the user and get their name
+print("Hello!")
 name = input("Please enter your name: ")
-print("Hello", name + ", How may I assist you today?")
+print(f"Hello, {name}! How may I assist you today?\n")
 
-#fUNCTIONS
+# Function to display the main menu
 def print_menu():
-    print("Prompt options:")
+    print("Main Menu Options:")
     print("1. Clock")
     print("2. Weather")
     print("3. Date")
     print("4. Note")
-    print("Next 0")
+    print("0. Next Menu")
 
+# Function to display the secondary menu
 def print_menu2():
-    print("Prompt options 2:")
+    print("\nSecondary Menu Options:")
     print("5. Schedule")
     print("6. Browser")
     print("7. Alarm")
     print("8. Stopwatch")
-    print("9. Go back to the first prompt")
+    print("9. Return to Main Menu")
     print("0. Exit")
-    print("END PAGE")
 
+# Initialize the current menu
 current_menu = "menu1"
 
 while True:
     if current_menu == "menu1":
         print_menu()
-        choice = input("Please enter your choice (1-4, 0): ")
-        print("You chose:", choice)
+        choice = input("\nPlease enter your choice (1-4, 0): ")
 
         if choice == '1':
-            # Perform actions for option 1 (Clock)
-            pass
+            print("You selected: Clock")
+            # Implement clock functionality here
         elif choice == '2':
-            # Perform actions for option 2 (Weather)
-            pass
+            print("You selected: Weather")
+            # Implement weather functionality here
         elif choice == '3':
-            # Perform actions for option 3 (Date)
-            pass
+            print("You selected: Date")
+            # Implement date functionality here
         elif choice == '4':
-            # Perform actions for option 4 (Note)
-            pass
+            print("You selected: Note")
+            # Implement note functionality here
         elif choice == '0':
-            current_menu = "menu2"  # Switch to the second menu
-            continue  # Continue to the next iteration
+            current_menu = "menu2"
+            continue
 
     elif current_menu == "menu2":
         print_menu2()
-        choice = input("Please enter your choice (5-9, 0): ")
-        print("You chose:", choice)
+        choice = input("\nPlease enter your choice (5-9, 0): ")
 
         if choice == '5':
-            # Perform actions for option 5 (Schedule)
-            pass
+            print("You selected: Schedule")
+            # Implement schedule functionality here
         elif choice == '6':
-            # Perform actions for option 6 (Browser)
-            pass
+            print("You selected: Browser")
+            # Implement browser functionality here
         elif choice == '7':
-            # Perform actions for option 7 (Alarm)
-            pass
+            print("You selected: Alarm")
+            # Implement alarm functionality here
         elif choice == '8':
-            # Perform actions for option 8 (Stopwatch)
-            pass
+            print("You selected: Stopwatch")
+            # Implement stopwatch functionality here
         elif choice == '9':
-            current_menu = "menu1"  # Switch back to the first menu
-            continue  # Continue to the next iteration
+            current_menu = "menu1"
+            continue
         elif choice == '0':
-            break  # Exit the program
+            print("Exiting the program.")
+            break
 
-print("EXIT")
+print("\nProgram has exited.")
