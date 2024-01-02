@@ -1,15 +1,17 @@
 import random
 
 def draw_board(board):
+    """Display the current state of the Tic-Tac-Toe board."""
     print("-------------")
     for row in board:
         print("| " + " | ".join(row) + " |")
         print("-------------")
 
 def get_player_input():
+    """Get valid player move input."""
     while True:
         try:
-            player_input = int(input("Enter your move (1-9): ")
+            player_input = int(input("Enter your move (1-9): "))
             if 1 <= player_input <= 9:
                 return player_input
             print("Invalid input. Please enter a number between 1 and 9.")
@@ -17,6 +19,7 @@ def get_player_input():
             print("Invalid input. Please enter a number between 1 and 9.")
 
 def check_winner(board):
+    """Check if there's a winner on the board."""
     for row in board:
         if all(cell == row[0] and cell != " " for cell in row):
             return row[0]
@@ -34,17 +37,19 @@ def check_winner(board):
     return None
 
 def get_computer_input(board):
+    """Generate computer's move."""
     available_moves = [str(i + 1) for i, cell in enumerate(board) if cell == " "]
     return random.choice(available_moves)
 
 def main():
+    """Main game loop."""
     board = [[" " for _ in range(3)] for _ in range(3)]
-    player = "X"
+    current_player = "X"
 
     while True:
         draw_board(board)
 
-        if player == "X":
+        if current_player == "X":
             move = get_player_input()
         else:
             move = get_computer_input(board)
@@ -52,7 +57,7 @@ def main():
         row, col = divmod(move - 1, 3)
 
         if board[row][col] == " ":
-            board[row][col] = player
+            board[row][col] = current_player
         else:
             print("Invalid move. Please try again.")
             continue
@@ -68,7 +73,7 @@ def main():
             print("It's a draw!")
             break
 
-        player = "O" if player == "X" else "X"
+        current_player = "O" if current_player == "X" else "X"
 
 if __name__ == "__main__":
     main()
